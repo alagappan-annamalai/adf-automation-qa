@@ -1,10 +1,34 @@
 {
-  "name": "protractor_example",
+  "name": "adf-automation-qa-alagappan",
+  "version": "1.0.0",
+  "description": "QA Exercise on Envalfresco Site",
+  "main": "index.js",
+  "scripts": {
+    "test": "protractor conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alagappan-annamalai/adf-automation-qa.git"
+  },
+  "keywords": [
+    "QA",
+    "Exercise",
+    "Protractor"
+  ],
+  "author": "Alagappan Annamalai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alagappan-annamalai/adf-automation-qa/issues"
+  },
+  "homepage": "https://github.com/alagappan-annamalai/adf-automation-qa#readme",
   "dependencies": {
-    "jasmine-spec-reporter": "2.7.0"
+    "auto-reload-json": "^1.0.2",
+    "babel-register": "^6.26.0",
+    "jasmine-spec-reporter": "^5.0.2",
+    "path": "^0.12.7",
+    "protractor-beautiful-reporter": "^1.3.6"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.24.1",
-    "babel-register": "^6.24.1"
+    "babel-preset-es2015": "^6.24.1"
   }
 }

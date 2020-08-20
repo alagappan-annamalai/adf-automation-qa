@@ -1,0 +1,12 @@
+{
+    "url":"http://qaexercise.envalfresco.com/",
+    "userName":"guest@example.com",
+    "password":"Password",
+    "gitUserName":"alagappan-annamalai",
+    "settingsPageTitle": "Welcome - Alfresco ADF Application",
+    "provider":"ECM",
+    "loginURL":"http://qaexercise.envalfresco.com/login",
+    "landingPage":"http://qaexercise.envalfresco.com/home",
+    "filesPage":"http://qaexercise.envalfresco.com/files",
+    "duplicateErrorMessage":"There's already a folder with this name. Try a different name."
+}

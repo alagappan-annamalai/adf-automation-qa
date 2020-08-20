@@ -1,7 +1,12 @@
 // conf.js
-
+let specReporter = require('jasmine-spec-reporter').SpecReporter;
+let path = require('path');
+let beautifulHtmlReporter = require('protractor-beautiful-reporter');
+let currentDate = new Date();
+let dateString = currentDate.getDate() + '-' + (currentDate.getMonth() + 1) + '-' + (currentDate.getYear() + 1900) + '-' + currentDate.getHours() + 'hrs-' + currentDate.getMinutes() + 'min-' + currentDate.getUTCSeconds() + 'sec';
+let reportDir = path.resolve(__dirname, './reports/'+dateString);
 require("babel-register")({
-    presets: ['es2015']
+    "presets": ["es2015"]
 });
 
 exports.config = {
@@ -15,7 +20,44 @@ exports.config = {
 
         // better jasmine 2 reports...
         const SpecReporter = require('jasmine-spec-reporter');
-        jasmine.getEnv().addReporter(new SpecReporter({ displayStacktrace: 'specs' }));
+        jasmine.getEnv().addReporter(new specReporter({ displayStacktrace: 'specs' }));
+        let originalJasmine2MetaDataBuilder = new beautifulHtmlReporter({
+            baseDirectory: './../'
+        })['jasmine2MetaDataBuilder'];
+        jasmine.getEnv().addReporter(
+            new beautifulHtmlReporter({
+                baseDirectory: reportDir,
+                docTitle: 'HTML Report',
+                docName: 'index.html',
+                gatherBrowserLogs: true,
+                showSummary: true,
+                showQuickLinks: true,
+                showConfiguration: true,
+                screenshotsSubfolder: 'images',
+                jsonsSubfolder: 'jsons',
+                clientDefaults: {
+                    showTotalDurationIn: 'header',
+                    totalDurationFormat: 'h:m:s'
+                },
+                jasmine2MetaDataBuilder: function (spec, descriptions, results, capabilities) {
+                    if (
+                        results &&
+                        results.failedExpectations &&
+                        results.failedExpectations.length > 0 &&
+                        'Failed: => marked Pending' === results.failedExpectations[0].message
+                    ) {
+                        results.pendingReason = 'Marked Pending with pending()';
+                        results.status = 'pending';
+                        results.failedExpectations = [];
+                    }
+                    return originalJasmine2MetaDataBuilder(spec, descriptions, results, capabilities);
+                },
+                preserveDirectory: false
+            }).getJasmine2Reporter()
+        );
+        params: {
+            expectedWaitTime = "5000";
+        }
     },
 
     capabilities: {
@@ -46,4 +88,5 @@ exports.config = {
         print: () => { },
         defaultTimeoutInterval: 50000
     }
+
 };
